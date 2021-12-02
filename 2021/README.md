@@ -15,10 +15,9 @@ optimization and forcing myself to learn the bundled tools.
 
 For a given day:
 
-1. Grab the input and save it in `priv/inputs/[day_num].txt`. I should automate
-   this as a mix task, huh.
+1. `mix advent.fetch_input [year].[day_num]`
 2. Create module `AdventOfCode.Days.Day[day_num]` in `lib/days/day[day_num].ex`
-   and implement `part1` and `part2` functions. I can also templatize this via a
+   and implement `part1` and `part2` functions. I should templatize this via a
    generator.
 3. Implement those functions, returning the answer as a string.
 4. Run `mix advent.solve [day_num]` to print the answer for both parts.
