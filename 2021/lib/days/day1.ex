@@ -1,18 +1,17 @@
 defmodule AdventOfCode.Days.Day1 do
   def part1 do
-    list = input_list()
-    count = count_increases(list)
-    Integer.to_string(count)
+    read_input() |> count_increases |> Integer.to_string()
   end
 
   def part2 do
-    list = input_list()
-    windows = list |> Enum.chunk_every(3, 1, :discard) |> Enum.map(&Enum.sum/1)
-    count = count_increases(windows)
-    Integer.to_string(count)
+    read_input()
+    |> Enum.chunk_every(3, 1, :discard)
+    |> Enum.map(&Enum.sum/1)
+    |> count_increases
+    |> Integer.to_string()
   end
 
-  defp input_list do
+  defp read_input do
     {:ok, data} = File.read("priv/inputs/1.txt")
 
     data
