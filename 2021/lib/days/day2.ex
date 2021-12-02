@@ -1,4 +1,6 @@
 defmodule AdventOfCode.Days.Day2 do
+  import AdventOfCode
+
   def part1 do
     AdventOfCode.Days.Day2.Part1.run()
   end
@@ -7,13 +9,8 @@ defmodule AdventOfCode.Days.Day2 do
     AdventOfCode.Days.Day2.Part2.run()
   end
 
-  def read_input do
-    {:ok, data} = File.read("priv/inputs/2.txt")
-
-    data
-    |> String.split("\n")
-    |> Enum.map(&String.trim/1)
-    |> Enum.filter(fn x -> String.length(x) > 0 end)
+  def input do
+    read_input(2)
   end
 end
 
@@ -22,7 +19,7 @@ defmodule AdventOfCode.Days.Day2.Part1 do
 
   def run do
     acc =
-      Day2.read_input()
+      Day2.input()
       |> Enum.reduce(%{"horizontal" => 0, "depth" => 0}, &accumulate_position/2)
 
     Integer.to_string(acc["horizontal"] * acc["depth"])
@@ -46,7 +43,7 @@ defmodule AdventOfCode.Days.Day2.Part2 do
 
   def run do
     acc =
-      Day2.read_input()
+      Day2.input()
       |> Enum.reduce(%{"horizontal" => 0, "depth" => 0, "aim" => 0}, &accumulate_position/2)
 
     Integer.to_string(acc["horizontal"] * acc["depth"])

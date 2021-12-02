@@ -1,23 +1,20 @@
 defmodule AdventOfCode.Days.Day1 do
+  import AdventOfCode
+
   def part1 do
-    read_input() |> count_increases |> Integer.to_string()
+    input() |> count_increases |> Integer.to_string()
   end
 
   def part2 do
-    read_input()
+    input()
     |> Enum.chunk_every(3, 1, :discard)
     |> Enum.map(&Enum.sum/1)
     |> count_increases
     |> Integer.to_string()
   end
 
-  defp read_input do
-    {:ok, data} = File.read("priv/inputs/1.txt")
-
-    data
-    |> String.split("\n")
-    |> Enum.map(&String.trim/1)
-    |> Enum.filter(fn x -> String.length(x) > 0 end)
+  defp input do
+    read_input(1)
     |> Enum.map(&String.to_integer/1)
   end
 
