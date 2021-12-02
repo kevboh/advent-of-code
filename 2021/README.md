@@ -1,21 +1,24 @@
-# AdventOfCode
+# AdventOfCode 2021
 
-**TODO: Add description**
+My 2021 Advent of Code solutions. I chose Elixir this year, both because I want
+to get better at Elixir and also because I need a language that can deal with
+string/stream parsing easily—that was my downfall last year with Swift, a
+language ill-suited to quickly throwing together string-parsing solutions.
 
-## Installation
+While I have considered tools to make my solutions more concise or automated,
+like [this one](https://github.com/mathsaey/advent_of_code_utils), I'm sticking
+with setting each day up manually for now until I have a feel for how best to
+automate my own process. In other words, I'm avoiding my own premature
+optimization and forcing myself to learn the bundled tools.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `advent_of_code` to your list of dependencies in `mix.exs`:
+## Solving Puzzles
 
-```elixir
-def deps do
-  [
-    {:advent_of_code, "~> 0.1.0"}
-  ]
-end
-```
+For a given day:
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/advent_of_code](https://hexdocs.pm/advent_of_code).
-
+1. Grab the input and save it in `priv/inputs/[day_num].txt`. I should automate
+   this as a mix task, huh.
+2. Create module `AdventOfCode.Days.Day[day_num]` in `lib/days/day[day_num].ex`
+   and implement `part1` and `part2` functions. I can also templatize this via a
+   generator.
+3. Implement those functions, returning the answer as a string.
+4. Run `mix advent.solve [day_num]` to print the answer for both parts.
