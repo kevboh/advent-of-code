@@ -44,7 +44,7 @@ defmodule AdventOfCode.Days.Day3 do
 
   defp find_rating(candidates, rating_type), do: find_rating(candidates, rating_type, 0)
 
-  defp find_rating([candidate | []], rating_type, bit_position), do: candidate
+  defp find_rating([candidate | []], _rating_type, _bit_position), do: candidate
 
   defp find_rating(candidates, rating_type, bit_position) do
     r = common_bits(candidates)
