@@ -48,22 +48,13 @@ defmodule AdventOfCode.Days.Day13 do
   defp fold(dots, {direction, line}) do
     dots
     |> MapSet.to_list()
-    |> Enum.map(fn {x, y} ->
-      case direction do
-        :x when x > line ->
-          diff = (x - line) * 2
-          {x - diff, y}
-
-        :y when y > line ->
-          diff = (y - line) * 2
-          {x, y - diff}
-
-        _ ->
-          {x, y}
-      end
-    end)
+    |> Enum.map(fn p -> fold_point(direction, line, p) end)
     |> MapSet.new()
   end
+
+  defp fold_point(:x, line, {x, y}) when x > line, do: {-x + 2 * line, y}
+  defp fold_point(:y, line, {x, y}) when y > line, do: {x, -y + 2 * line}
+  defp fold_point(_, _, {x, y}), do: {x, y}
 
   defp render(dot_list, x \\ 0) do
     if dot_list |> Enum.map(fn {x1, y1} -> x1 end) |> Enum.all?(fn x1 -> x1 < x end) do
