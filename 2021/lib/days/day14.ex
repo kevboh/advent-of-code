@@ -70,9 +70,13 @@ defmodule AdventOfCode.Days.Day14 do
   end
 
   defp score(template) do
-    elements = template |> Map.keys() |> Enum.flat_map(&String.graphemes/1) |> Enum.uniq()
+    values =
+      template
+      |> Map.keys()
+      |> Enum.flat_map(&String.graphemes/1)
+      |> Enum.uniq()
+      |> Enum.map(&score(template, &1))
 
-    values = elements |> Enum.map(&score(template, &1))
     Enum.max(values) - Enum.min(values)
   end
 
