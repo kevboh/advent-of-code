@@ -5,7 +5,6 @@ defmodule AdventOfCode.Days.Day6 do
     simulate(get_seed(), 80)
   end
 
-  # I didn't submit this part because I gave up and cribbed it from https://github.com/zperrault/advent-of-code/blob/main/2021/lib/2021/6.ex
   def part2 do
     seeds = get_seed()
 
@@ -13,16 +12,12 @@ defmodule AdventOfCode.Days.Day6 do
       seeds
       |> Enum.frequencies()
 
-    freq_counts =
-      for i <- 0..8,
-          do:
-            Map.get(
-              freqs,
-              i,
-              0
-            )
+    freqs =
+      for _gen <- 1..256, reduce: freqs do
+        acc -> next_gen_freqs(acc)
+      end
 
-    rotate_gen(255, freq_counts) |> Enum.sum()
+    freqs |> Map.values() |> Enum.sum()
   end
 
   defp input do
@@ -53,8 +48,19 @@ defmodule AdventOfCode.Days.Day6 do
     end)
   end
 
-  defp rotate_gen(gen, [f0, f1, f2, f3, f4, f5, f6, f7, f8]) do
-    res = [f1, f2, f3, f4, f5, f6, f7 + f0, f8, f0]
-    if gen <= 0, do: res, else: rotate_gen(gen - 1, res)
+  defp next_gen_freqs(freqs) do
+    %{
+      0 => freqs[1],
+      1 => freqs[2],
+      2 => freqs[3],
+      3 => freqs[4],
+      4 => freqs[5],
+      5 => freqs[6],
+      6 => safe(freqs[7]) + safe(freqs[0]),
+      7 => freqs[8],
+      8 => freqs[0]
+    }
   end
+
+  defp safe(a), do: if(a == nil, do: 0, else: a)
 end
