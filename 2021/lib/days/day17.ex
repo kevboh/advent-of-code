@@ -10,7 +10,7 @@ defmodule AdventOfCode.Days.Day17 do
           {:ok, _, highest} ->
             highest
 
-          {:error, _, highest} ->
+          {:error, _, _} ->
             0
         end
       end
@@ -28,7 +28,7 @@ defmodule AdventOfCode.Days.Day17 do
             {:ok, _, _} ->
               [{vx, vy} | acc]
 
-            {:error, _, highest} ->
+            {:error, _, _} ->
               acc
           end
       end
