@@ -1,7 +1,7 @@
 defmodule AdventOfCode.Days.Day20 do
   import AdventOfCode
 
-  @input 20
+  @input "20"
 
   def part1 do
     {algo, image} = input()
@@ -10,14 +10,15 @@ defmodule AdventOfCode.Days.Day20 do
   end
 
   def part2 do
-    "not implemented"
+    {algo, image} = input()
+
+    abby_i_said_ENHANCE(algo, image, 50) |> print_image() |> count_lit_pixels()
   end
 
   defp abby_i_said_ENHANCE(_, image, 0), do: image
 
   defp abby_i_said_ENHANCE(algo, image, times) do
-    print_image(image)
-    scannable = scannable_image(image)
+    scannable = scannable_image(algo, image, times)
     enhanced_image = enhance(algo, scannable)
     abby_i_said_ENHANCE(algo, enhanced_image, times - 1)
   end
@@ -28,31 +29,16 @@ defmodule AdventOfCode.Days.Day20 do
 
   defp enhance(algo, [lines = {_, center, _} | rest], enhanced_image) do
     # scan through the tuple of lines, creating a new line to append to enhanced_image
-
-    # IO.inspect(lines)
-
     new_line =
       for i <- 0..(String.length(center) - 3), into: "" do
-        sq = pixel_square_at(lines, i)
-
-        index =
-          sq
-          |> Enum.map(&value/1)
-          |> Enum.into(<<>>, fn bit -> <<bit::1>> end)
-          |> then(fn i ->
-            <<index::9>> = i
-            index
-          end)
-
-        v = Map.get(algo, index)
-
-        # IO.inspect(sq, label: "square at #{i}")
-        # IO.puts("evaluates to #{index} of value: #{v}")
-
-        v
+        pixel_square_at(lines, i)
+        |> Enum.map(&value/1)
+        |> Enum.into(<<>>, fn bit -> <<bit::1>> end)
+        |> then(fn i ->
+          <<index::9>> = i
+          Map.get(algo, index)
+        end)
       end
-
-    # IO.puts(new_line)
 
     enhance(algo, rest, [new_line | enhanced_image])
   end
@@ -70,11 +56,12 @@ defmodule AdventOfCode.Days.Day20 do
     [tl, tm, tr, cl, cm, cr, bl, bm, br]
   end
 
-  defp scannable_image(image_lines) do
+  defp scannable_image(algo, image_lines, transform_count) do
+    p = if algo[0] == "#" && rem(transform_count, 2) == 1, do: "#", else: "."
     width = 4 + (image_lines |> hd() |> String.length())
 
-    e = dark_line(width)
-    padded_lines = image_lines |> Enum.map(fn l -> ".." <> l <> ".." end)
+    e = line_of(width, p)
+    padded_lines = image_lines |> Enum.map(fn l -> "#{p}#{p}" <> l <> "#{p}#{p}" end)
     padded_image = [e] ++ padded_lines ++ [e]
 
     Enum.zip([[e | padded_image], padded_image, tl(padded_image) ++ [e]])
@@ -82,8 +69,6 @@ defmodule AdventOfCode.Days.Day20 do
 
   defp input do
     [algo | image] = read_input(@input)
-
-    # IO.puts(algo)
 
     algo =
       algo
@@ -98,8 +83,8 @@ defmodule AdventOfCode.Days.Day20 do
   defp value("."), do: 0
   defp value("#"), do: 1
 
-  defp dark_line(width) do
-    for _ <- 1..width, into: "", do: "."
+  defp line_of(width, char) do
+    for _ <- 1..width, into: "", do: char
   end
 
   defp print_image(image) do
