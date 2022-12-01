@@ -51,4 +51,12 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
 /.envrc
+
+# Elixir
+_build
+deps/
+
+# AOC
+**/priv/
