@@ -1,3 +1,5 @@
 import Config
 
-config :advent_of_code, session: System.get_env("ADVENT_OF_CODE_SESSION")
+config :advent_of_code,
+  session: System.get_env("ADVENT_OF_CODE_SESSION"),
+  year: 2022

@@ -8,7 +8,8 @@ defmodule AdventOfCode.MixProject do
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      elixirc_paths: elixirc_paths(Mix.env())
+      elixirc_paths: elixirc_paths(Mix.env()),
+      aliases: aliases()
     ]
   end
 
@@ -28,4 +29,16 @@ defmodule AdventOfCode.MixProject do
   end
 
   defp elixirc_paths(_), do: ["lib"]
+
+  defp aliases do
+    [
+      start: &start/1,
+      solve: ["advent.solve"]
+    ]
+  end
+
+  defp start(day) do
+    Mix.Task.run("advent.fetch_input", day)
+    Mix.Task.run("advent.gen.day", day)
+  end
 end

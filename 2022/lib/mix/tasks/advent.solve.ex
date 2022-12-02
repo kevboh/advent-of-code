@@ -3,7 +3,7 @@ defmodule Mix.Tasks.Advent.Solve do
 
   use Mix.Task
 
-  @shortdoc "Solves an Advent of Code 2021 puzzle."
+  @shortdoc "Solves an Advent of Code puzzle."
   @impl Mix.Task
   def run(day_num) do
     day = "Days.Day#{day_num}" |> String.to_atom()
