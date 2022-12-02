@@ -56,10 +56,8 @@ defmodule AdventOfCode.Days.Day2 do
      end, result}
   end
 
-  defp beats(a, b), do: b == @wins[a]
-
   defp outcome({them, me}) do
-    case {beats(them, me), beats(me, them)} do
+    case {@wins[them] == me, @wins[me] == them} do
       {true, _} -> :loss
       {_, true} -> :win
       _ -> :draw
