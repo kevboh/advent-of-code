@@ -7,14 +7,7 @@ defmodule Mix.Tasks.Advent.Gen.Day do
   @shortdoc "Generates an Advent of Code day solution module."
   @impl Mix.Task
   def run([day]) do
-    path = "lib/days/day#{day}.ex"
-
-    if File.exists?(path) do
-      Mix.shell().info([:yellow, "* Skipping ", :reset, path, " (already exists)"])
-    else
-      Mix.shell().info([:green, "* Creating ", :reset, path])
-      File.write(path, day_template(day: day))
-    end
+    Mix.Generator.create_file("lib/days/day#{day}.ex", day_template(day: day))
   end
 
   embed_template(:day, """
