@@ -38,17 +38,22 @@ defmodule AdventOfCode.Days.Day2 do
   defp want("Y"), do: :draw
   defp want("Z"), do: :win
 
-  defp plays_1(<<them::binary-size(1), " ", me::binary-size(1), "\n">>),
-    do: {they_play(them), i_play(me)}
+  defp plays_1(<<them::binary-size(1), " ", me::binary-size(1), "\n">>) do
+    t = they_play(them)
+    i = i_play(me)
+    {t, i, outcome({t, i})}
+  end
 
   defp plays_2(<<them::binary-size(1), " ", me::binary-size(1), "\n">>) do
     played = they_play(them)
+    result = want(me)
 
-    case {played, want(me)} do
-      {p, :loss} -> {p, @wins[p]}
-      {p, :draw} -> {p, p}
-      {p, :win} -> {p, @loses[p]}
-    end
+    {played,
+     case result do
+       :loss -> @wins[played]
+       :draw -> played
+       :win -> @loses[played]
+     end, result}
   end
 
   defp beats(a, b), do: b == @wins[a]
@@ -69,5 +74,5 @@ defmodule AdventOfCode.Days.Day2 do
   defp shape_score(:paper), do: 2
   defp shape_score(:scissors), do: 3
 
-  defp score({them, me}), do: (outcome({them, me}) |> outcome_score()) + shape_score(me)
+  defp score({_, me, outcome}), do: outcome_score(outcome) + shape_score(me)
 end
