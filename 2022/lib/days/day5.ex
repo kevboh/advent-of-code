@@ -3,7 +3,6 @@ defmodule AdventOfCode.Days.Day5 do
 
   def part1 do
     moves()
-    |> Stream.map(&parse_move/1)
     |> Enum.reduce(stacks(), &move_p1/2)
     |> Enum.map(&List.first/1)
     |> Enum.join("")
@@ -11,7 +10,6 @@ defmodule AdventOfCode.Days.Day5 do
 
   def part2 do
     moves()
-    |> Stream.map(&parse_move/1)
     |> Enum.reduce(stacks(), &move_p2/2)
     |> Enum.map(&List.first/1)
     |> Enum.join("")
@@ -40,6 +38,7 @@ defmodule AdventOfCode.Days.Day5 do
     input()
     |> Stream.filter(&String.starts_with?(&1, "move"))
     |> Stream.map(&String.trim/1)
+    |> Stream.map(&parse_move/1)
   end
 
   defp is_stack?(line), do: String.starts_with?(line, "[") or String.starts_with?(line, "  ")
