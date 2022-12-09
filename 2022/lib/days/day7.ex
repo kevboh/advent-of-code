@@ -18,9 +18,11 @@ defmodule AdventOfCode.Days.Day7.State do
   end
 
   defp put(s, key, value) do
-    tree = update_in(s.tree, Enum.reverse(s.path), fn k ->
-      Map.put(k, key, value)
-    end)
+    tree =
+      update_in(s.tree, Enum.reverse(s.path), fn k ->
+        Map.put(k, key, value)
+      end)
+
     %{s | tree: tree}
   end
 end
@@ -33,26 +35,26 @@ defmodule AdventOfCode.Days.Day7 do
   def part1 do
     input()
     |> Enum.to_list()
-    |> Enum.filter(fn {k, v} -> v <= 100000 end)
-    |> Enum.map(&(elem(&1, 1)))
+    |> Enum.filter(fn {_, v} -> v <= 100_000 end)
+    |> Enum.map(&elem(&1, 1))
     |> Enum.sum()
   end
 
   def part2 do
     dirs = input()
-    available = 70000000 - dirs["/"]
+    available = 70_000_000 - dirs["/"]
 
     dirs
     |> Enum.to_list()
     |> Enum.map(&elem(&1, 1))
     |> Enum.sort(:asc)
-    |> Enum.find(fn v -> v + available >= 30000000 end)
+    |> Enum.find(fn v -> v + available >= 30_000_000 end)
   end
 
   defp input do
     read_input(7)
     |> Stream.map(&String.trim/1)
-    |> Stream.reject(&(String.starts_with?(&1, "$ ls")))
+    |> Stream.reject(&String.starts_with?(&1, "$ ls"))
     |> Enum.reduce(%AdventOfCode.Days.Day7.State{}, &reduce/2)
     |> Map.get(:tree)
     |> dir_sizes()
@@ -62,6 +64,7 @@ defmodule AdventOfCode.Days.Day7 do
   defp reduce(file_folder, s), do: State.put(s, file_folder)
 
   defp dir_sizes(v, path \\ [], acc \\ %{})
+
   defp dir_sizes(size, [_filename | path], acc) when is_integer(size) do
     path
     |> all_paths()
@@ -79,11 +82,15 @@ defmodule AdventOfCode.Days.Day7 do
   defp all_paths(p, acc \\ [])
   defp all_paths([], acc), do: acc
   defp all_paths([p], acc), do: [p | acc]
+
   defp all_paths(path = [_ | rest], acc) do
-    ps = path
-    |> Enum.reverse()
-    |> Enum.join("/")
-    |> String.replace_prefix("//", "/") #i'm so tired
+    ps =
+      path
+      |> Enum.reverse()
+      |> Enum.join("/")
+      # i'm so tired
+      |> String.replace_prefix("//", "/")
+
     all_paths(rest, [ps | acc])
   end
 end
