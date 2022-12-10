@@ -28,7 +28,7 @@ defmodule AdventOfCode.Days.Day8 do
     |> elem(0)
   end
 
-  defp reduce({line, row}, acc = {grid, _, height}) do
+  defp reduce({line, row}, acc = {_, _, height}) do
     {g, w, _} =
       line
       |> String.codepoints()
