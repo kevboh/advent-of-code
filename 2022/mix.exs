@@ -24,7 +24,8 @@ defmodule AdventOfCode.MixProject do
   defp deps do
     [
       {:finch, "~> 0.14"},
-      {:flow, "~> 1.2.0"}
+      {:flow, "~> 1.2.0"},
+      {:nimble_parsec, "~> 1.2.3"}
     ]
   end
 
