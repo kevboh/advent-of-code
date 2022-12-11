@@ -30,14 +30,14 @@ defmodule AdventOfCode.Days.Day11.Monkey.Parsers do
 
   def throw_to(condition) do
     ignore(string("If "))
-    |> ignore(string(condition))
+    |> ignore(string(Atom.to_string(condition)))
     |> ignore(string(": throw to monkey "))
     |> integer(min: 1)
-    |> unwrap_and_tag(String.to_atom("if_" <> condition))
+    |> unwrap_and_tag(condition)
   end
 
   def monkey do
-    [name(), items(), operation(), test(), throw_to("true"), throw_to("false")]
+    [name(), items(), operation(), test(), throw_to(true), throw_to(false)]
     |> Enum.reduce(fn c, acc ->
       acc |> ignore(string("\n")) |> concat(c)
     end)
@@ -77,9 +77,14 @@ defmodule AdventOfCode.Days.Day11.Monkey do
         monkeys
 
       [item | rest] ->
-        item = Integer.mod(inspect_item(item, m[:operation]), shared_test)
-        item = trunc(item / m[:divisor])
-        target = test(item, m)
+        item =
+          item
+          |> inspect_item(m[:operation])
+          |> Integer.mod(shared_test)
+          |> then(&(&1 / m[:divisor]))
+          |> trunc()
+
+        target = m[Integer.mod(item, m[:test]) == 0]
 
         monkeys =
           update_in(monkeys[target].items, fn items ->
@@ -99,10 +104,6 @@ defmodule AdventOfCode.Days.Day11.Monkey do
   defp inspect_item(item, [op, v]) when op == "+", do: item + v
   defp inspect_item(item, [op, v]) when op == "*" and v == "old", do: item * item
   defp inspect_item(item, [op, v]) when op == "*", do: item * v
-
-  defp test(item, m) do
-    if Integer.mod(item, m[:test]) == 0, do: m[:if_true], else: m[:if_false]
-  end
 end
 
 defmodule AdventOfCode.Days.Day11 do
@@ -110,16 +111,15 @@ defmodule AdventOfCode.Days.Day11 do
   alias AdventOfCode.Days.Day11.Monkey
 
   def part1 do
-    Enum.reduce(1..20, Monkey.from(input(), 3), &Monkey.do_round/2)
-    |> Map.values()
-    |> Enum.map(& &1.inspections)
-    |> Enum.sort(:desc)
-    |> Enum.take(2)
-    |> Enum.product()
+    monkey_business(20, 3)
   end
 
   def part2 do
-    Enum.reduce(1..10000, Monkey.from(input(), 1), &Monkey.do_round/2)
+    monkey_business(10000, 1)
+  end
+
+  defp monkey_business(rounds, divisor) do
+    Enum.reduce(1..rounds, Monkey.from(input(), divisor), &Monkey.do_round/2)
     |> Map.values()
     |> Enum.map(& &1.inspections)
     |> Enum.sort(:desc)
