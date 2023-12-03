@@ -2,7 +2,9 @@ package aoc
 
 import (
 	"flag"
+	"log"
 	"log/slog"
+	"strconv"
 
 	"kevinbarrett.org/aoc2023/clipboard"
 )
@@ -25,4 +27,12 @@ func Run[A any](p1 func() A, p2 func() A) {
 
 	clipboard.Copy(answer)
 	slog.Info("Done!", "part", part, "result", answer)
+}
+
+func MustInt(s string) int32 {
+	i, err := strconv.Atoi(s)
+	if err != nil {
+		log.Fatalf("expected %s to MustInt", s)
+	}
+	return int32(i)
 }
