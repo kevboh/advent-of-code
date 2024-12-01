@@ -6,6 +6,7 @@ import gleam/string
 import glint
 import simplifile
 import tempo/date
+import util/days
 
 fn year_flag() -> glint.Flag(String) {
   glint.string_flag("year")
@@ -34,7 +35,7 @@ pub fn fetch() -> glint.Command(Nil) {
   let assert Ok(session) = envoy.get("ADVENT_OF_CODE_SESSION")
   let path =
     "inputs/"
-    |> string.append(day)
+    |> string.append(days.pad_day(day))
     |> string.append(".txt")
 
   let url =
