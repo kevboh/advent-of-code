@@ -46,6 +46,7 @@ pub fn run() -> glint.Command(Nil) {
 fn run_day_part(day: String, part: String) -> String {
   let input_file = "inputs/" <> day <> ".txt"
   let assert Ok(input) = simplifile.read(input_file)
+  let input = string.trim(input)
 
   case day, part {
     "01", "1" -> day01.part1(input)

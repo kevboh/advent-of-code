@@ -1,24 +1,12 @@
-# aoc2024
+# AdventOfCode 2024
 
-[![Package Version](https://img.shields.io/hexpm/v/aoc2024)](https://hex.pm/packages/aoc2024)
-[![Hex Docs](https://img.shields.io/badge/hex-docs-ffaff3)](https://hexdocs.pm/aoc2024/)
+I [tried using Gleam](./2024_gleam/) but bounced off. Maybe next time. Back to Elixir!
 
-```sh
-gleam add aoc2024@1
-```
-```gleam
-import aoc2024
+## Solving Puzzles
 
-pub fn main() {
-  // TODO: An example of the project in use
-}
-```
+For a given day:
 
-Further documentation can be found at <https://hexdocs.pm/aoc2024>.
-
-## Development
-
-```sh
-gleam run   # Run the project
-gleam test  # Run the tests
-```
+1. `mix start [day_num]`
+2. Implement `part1` and `part2` using the `input/0` function, returning the
+   answer as a string.
+3. Run `mix solve [day_num]` to print the answer for both parts.

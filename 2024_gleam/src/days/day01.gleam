@@ -42,7 +42,6 @@ pub fn part2(input: String) -> String {
 
 fn parse(input: String) -> List(List(Int)) {
   input
-  |> string.trim
   |> string.split("\n")
   |> list.map(fn(l) {
     string.split(l, "   ")
