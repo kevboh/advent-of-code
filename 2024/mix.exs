@@ -25,7 +25,7 @@ defmodule AdventOfCode.MixProject do
     [
       {:finch, "~> 0.14"},
       {:flow, "~> 1.2.0"},
-      {:nimble_parsec, "~> 1.2.3"}
+      {:nimble_parsec, "~> 1.4"}
     ]
   end
 
