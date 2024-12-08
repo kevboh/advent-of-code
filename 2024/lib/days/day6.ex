@@ -1,5 +1,5 @@
 defmodule AdventOfCode.Days.Day6 do
-  import AdventOfCode
+  use AdventOfCode
 
   alias AdventOfCode.Helpers.Grid
 
@@ -75,7 +75,7 @@ defmodule AdventOfCode.Days.Day6 do
   defp turn(:left), do: :up
 
   defp grid do
-    input = read_input(6)
+    input = Input.read(6)
 
     {obstacles, [{start, _}]} =
       Grid.to_map(input)

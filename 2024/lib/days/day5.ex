@@ -1,5 +1,5 @@
 defmodule AdventOfCode.Days.Day5 do
-  import AdventOfCode
+  use AdventOfCode
 
   def part1 do
     {correct, _} = chunked_updates()
@@ -35,7 +35,7 @@ defmodule AdventOfCode.Days.Day5 do
   end
 
   defp input do
-    read_input(5)
+    Input.read(5)
     |> Stream.map(&String.trim/1)
     |> Stream.filter(&(&1 != ""))
     |> Enum.chunk_by(&String.contains?(&1, "|"))

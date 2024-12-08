@@ -1,5 +1,5 @@
 defmodule AdventOfCode.Days.Day2 do
-  import AdventOfCode
+  use AdventOfCode
 
   def part1 do
     solve(&safe_one/1)
@@ -10,7 +10,7 @@ defmodule AdventOfCode.Days.Day2 do
   end
 
   defp input do
-    read_input(2)
+    Input.read(2)
   end
 
   defp solve(solver) do

@@ -3,7 +3,12 @@ defmodule AdventOfCode do
   Documentation for `AdventOfCode`.
   """
 
-  def read_input(day) do
-    File.stream!("priv/inputs/#{day}.txt")
+  defmacro __using__(_) do
+    quote do
+      import AdventOfCode.Helpers.Common
+
+      alias AdventOfCode.Helpers.Input
+      alias AdventOfCode.Helpers.Grid
+    end
   end
 end

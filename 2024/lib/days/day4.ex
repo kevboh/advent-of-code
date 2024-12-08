@@ -1,5 +1,5 @@
 defmodule AdventOfCode.Days.Day4 do
-  import AdventOfCode
+  use AdventOfCode
 
   def part1 do
     input()
@@ -48,7 +48,7 @@ defmodule AdventOfCode.Days.Day4 do
 
   defp input do
     lines =
-      read_input(4)
+      Input.read(4)
       |> Stream.map(&(&1 |> String.trim() |> String.codepoints() |> Enum.with_index()))
       |> Enum.with_index()
 

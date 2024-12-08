@@ -48,7 +48,7 @@ defmodule AdventOfCode.Days.Day3.Parser do
 end
 
 defmodule AdventOfCode.Days.Day3 do
-  import AdventOfCode
+  use AdventOfCode
 
   alias AdventOfCode.Days.Day3.Parser
 
@@ -74,7 +74,7 @@ defmodule AdventOfCode.Days.Day3 do
   end
 
   defp input do
-    read_input(3)
+    Input.read(3)
     |> Enum.join()
   end
 

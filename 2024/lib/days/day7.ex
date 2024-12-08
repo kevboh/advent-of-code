@@ -1,5 +1,5 @@
 defmodule AdventOfCode.Days.Day7 do
-  import AdventOfCode
+  use AdventOfCode
 
   def part1 do
     sum_solutions([&Kernel.+/2, &Kernel.*/2])
@@ -34,7 +34,7 @@ defmodule AdventOfCode.Days.Day7 do
   end
 
   defp input do
-    read_input(7)
+    Input.read(7)
     |> Stream.map(&parse_line/1)
   end
 

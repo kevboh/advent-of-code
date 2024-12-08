@@ -12,7 +12,7 @@ defmodule Mix.Tasks.Advent.Gen.Day do
 
   embed_template(:day, """
   defmodule AdventOfCode.Days.Day<%= @day %> do
-    import AdventOfCode
+    use AdventOfCode
 
     def part1 do
       "not implemented"
@@ -23,7 +23,7 @@ defmodule Mix.Tasks.Advent.Gen.Day do
     end
 
     defp input do
-      read_input(<%= @day %>)
+      Input.read(<%= @day %>)
     end
   end
   """)

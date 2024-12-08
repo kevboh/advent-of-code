@@ -27,4 +27,6 @@ defmodule AdventOfCode.Helpers.Grid do
     end)
     |> Enum.into(%{})
   end
+
+  def contains?({w, h}, {x, y}), do: x >= 0 and x < w and y >= 0 and y < h
 end
