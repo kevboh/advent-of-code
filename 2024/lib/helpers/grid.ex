@@ -42,7 +42,7 @@ defmodule AdventOfCode.Helpers.Grid do
   def contains?(%Grid{size: size}, point), do: contains?(size, point)
   def contains?({w, h}, {x, y}), do: x >= 0 and x < w and y >= 0 and y < h
 
-  def neighbors(%Grid{size: size, map: map}, {x, y}) do
+  def neighbors(%Grid{size: size, map: map}, {x, y}, map_fun \\ & &1) do
     [
       {x - 1, y},
       {x + 1, y},
@@ -50,6 +50,8 @@ defmodule AdventOfCode.Helpers.Grid do
       {x, y + 1}
     ]
     |> Enum.filter(&contains?(size, &1))
-    |> Enum.map(&{&1, Map.get(map, &1)})
+    |> Enum.map(&map_fun.({&1, Map.get(map, &1)}))
   end
+
+  def at(%Grid{map: map}, {x, y}), do: Map.get(map, {x, y})
 end

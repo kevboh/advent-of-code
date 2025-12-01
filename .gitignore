@@ -52,7 +52,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-/.envrc
+/.env
 
 # Elixir
 _build
