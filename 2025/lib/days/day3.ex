@@ -1,4 +1,5 @@
 defmodule AdventOfCode.Days.Day3 do
+  @moduledoc false
   use AdventOfCode
 
   def part1 do
@@ -14,7 +15,8 @@ defmodule AdventOfCode.Days.Day3 do
   end
 
   defp joltage_in(bank, digit_count) do
-    Enum.reduce(digit_count..1//-1, {"", -1}, fn up_to, {builder, last_idx} ->
+    digit_count..1//-1
+    |> Enum.reduce({"", -1}, fn up_to, {builder, last_idx} ->
       {digit, idx} = largest_in(bank, (last_idx + 1)..-up_to//1)
       {"#{builder}#{digit}", last_idx + 1 + idx}
     end)
@@ -30,7 +32,8 @@ defmodule AdventOfCode.Days.Day3 do
   end
 
   defp input do
-    stream_day("3")
+    "3"
+    |> stream_day()
     |> Stream.map(&String.trim/1)
     |> Stream.map(fn line ->
       line

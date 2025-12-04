@@ -1,8 +1,10 @@
 defmodule AdventOfCode.Days.Day1 do
+  @moduledoc false
   use AdventOfCode
 
   def part1 do
-    Enum.reduce(input(), {50, 0}, fn rotation, {dial, zeroes} ->
+    input()
+    |> Enum.reduce({50, 0}, fn rotation, {dial, zeroes} ->
       dial = rotate(dial, rotation)
       zeroes = if dial == 0, do: zeroes + 1, else: zeroes
       {dial, zeroes}
@@ -11,7 +13,8 @@ defmodule AdventOfCode.Days.Day1 do
   end
 
   def part2 do
-    Enum.reduce(input(), {50, 0}, fn rotation, {dial, zeroes} ->
+    input()
+    |> Enum.reduce({50, 0}, fn rotation, {dial, zeroes} ->
       {dial, passes} = clicks(dial, rotation)
       {dial, zeroes + passes}
     end)
@@ -19,7 +22,8 @@ defmodule AdventOfCode.Days.Day1 do
   end
 
   defp input do
-    stream_day("1")
+    "1"
+    |> stream_day()
     |> Stream.map(&String.trim/1)
   end
 

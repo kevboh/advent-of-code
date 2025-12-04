@@ -1,10 +1,11 @@
 defmodule Mix.Tasks.Advent.FetchInput do
+  @shortdoc "Fetches an Advent of Code input by day."
   @moduledoc "Task to fetch a day’s input: mix advent.fetch_input 1"
 
   use Mix.Task
+
   import Mix.Generator
 
-  @shortdoc "Fetches an Advent of Code input by day."
   @impl Mix.Task
   def run([day]) do
     # Load config for :advent_of_code

@@ -1,19 +1,21 @@
 defmodule AdventOfCode.Days.Day2 do
+  @moduledoc false
   use AdventOfCode
 
   def part1 do
-    invalid_ids_for_predicate(&repeats_twice?/1)
+    (&repeats_twice?/1)
+    |> invalid_ids_for_predicate()
     |> Enum.sum()
   end
 
   def part2 do
-    invalid_ids_for_predicate(&all_repeats?/1)
+    (&all_repeats?/1)
+    |> invalid_ids_for_predicate()
     |> Enum.sum()
   end
 
   defp invalid_ids_for_predicate(predicate) do
-    input()
-    |> Enum.flat_map(fn {s, e} ->
+    Enum.flat_map(input(), fn {s, e} ->
       Enum.filter(s..e, fn number ->
         predicate.(number)
       end)
@@ -50,15 +52,16 @@ defmodule AdventOfCode.Days.Day2 do
   end
 
   defp input do
-    stream_day("2")
+    "2"
+    |> stream_day()
     |> Enum.to_list()
     |> List.first()
     |> String.trim()
     |> String.split(",", trim: true)
     |> Enum.map(fn pair ->
       [s, e] = String.split(pair, "-")
-      s = String.trim(s) |> String.to_integer()
-      e = String.trim(e) |> String.to_integer()
+      s = s |> String.trim() |> String.to_integer()
+      e = e |> String.trim() |> String.to_integer()
       # Range will warn with an implied negative step;
       # to make the future easier, always order here.
       # We don't actually have to do this to get the right answer

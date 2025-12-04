@@ -1,7 +1,8 @@
 defmodule AdventOfCode.Grid do
-  defstruct map: %{}, size: {0, 0}
-
+  @moduledoc false
   alias __MODULE__
+
+  defstruct map: %{}, size: {0, 0}
 
   def from_stream(stream, map_values \\ & &1) do
     %Grid{
@@ -12,7 +13,8 @@ defmodule AdventOfCode.Grid do
 
   def size(stream) do
     width =
-      Stream.take(stream, 1)
+      stream
+      |> Stream.take(1)
       |> Enum.to_list()
       |> hd()
       |> String.trim()
@@ -36,7 +38,7 @@ defmodule AdventOfCode.Grid do
       |> Enum.with_index()
       |> Enum.map(fn {c, row} -> {{row, col}, map_values.(c)} end)
     end)
-    |> Enum.into(%{})
+    |> Map.new()
   end
 
   def contains?(%Grid{size: size}, point), do: contains?(size, point)
