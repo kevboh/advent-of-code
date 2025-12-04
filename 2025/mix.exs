@@ -21,7 +21,8 @@ defmodule AdventOfCode.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:req, "~> 0.5.16"}
+      {:req, "~> 0.5.16"},
+      {:styler, "~> 1.10", only: [:dev, :test], runtime: false}
     ]
   end
 end
